@@ -1,0 +1,23 @@
+<div class="col-md-4 map-form">
+
+  <p><input id="start" type="text" class="form-control input-md" placeholder="Start Location"></p>
+
+  <p><input id="end" type="text" class="form-control input-md" placeholder="End Location"></p>
+
+  <p>
+  <select class="form-control" id="place">
+    <option value="cvs">CVS</option>
+    <option value="starbucks">Starbucks</option>
+    <option value="whole foods">Whole Foods</option>
+  </select>
+  </p>
+
+  <button class="btn btn-primary" type="submit" onclick="calcRoute();">Submit</button>
+
+<div class="directions-panel">
+  <h4>Directions:</h4>
+  <hr>
+  <div id="steps"></div>
+</div>
+
+</div>
