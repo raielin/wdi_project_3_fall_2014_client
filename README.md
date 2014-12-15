@@ -1,2 +1,2 @@
-wdi_project_3_fall_2014_client
+## Project 3: Stop-In
 ==============================
