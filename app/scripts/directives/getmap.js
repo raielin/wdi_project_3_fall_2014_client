@@ -6,7 +6,7 @@
  * @description
  * # getMap
  */
-angular.module('stopInApp').directive('getMap', function () {
+angular.module('stopInApp').directive('getMap', function() {
   return function(scope, elem) {
     var map;
     var boston = new google.maps.LatLng(42.358992, -71.061019);
@@ -81,11 +81,6 @@ angular.module('stopInApp').directive('getMap', function () {
 
     map.mapTypes.set('map_style', styledMap);
     map.setMapTypeId('map_style');
-
-    var rendererOptions = {
-      draggable: true,
-      map: map
-    };
   }
 
 
