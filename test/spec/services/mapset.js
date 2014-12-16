@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: mapSet', function () {
+describe('Service: mapSetFactory', function () {
 
   // load the service's module
   beforeEach(module('stopInApp'));
