@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: directions', function () {
+describe('Service: DirectionsFactory', function () {
 
   // load the service's module
   beforeEach(module('stopInApp'));

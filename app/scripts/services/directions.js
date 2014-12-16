@@ -1,23 +1,16 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name stopInApp.directions
- * @description
- * # directions
- * Factory in the stopInApp.
- */
-angular.module('stopInApp')
-  .factory('directions', function () {
-    // Service logic
-    // ...
+angular.module('stopInApp').factory('DirectionsFactory', function($http, MapsAPI) {
 
-    var meaningOfLife = 42;
+  var directions = [];
 
-    // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
-    };
-  });
+  function fetch() {
+    $http.get(MapsAPI)
+  }
+
+  return {
+    someMethod: function () {
+      return meaningOfLife;
+    }
+  };
+});
