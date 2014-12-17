@@ -6,13 +6,15 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
+
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
+      <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
   <body ng-app="stopInApp">
@@ -56,22 +58,18 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/constants.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/controllers/directions.js"></script>
-        <script src="scripts/controllers/places.js"></script>
-        <script src="scripts/services/places.js"></script>
-        <script src="scripts/services/directions.js"></script>
-        <script src="scripts/directives/getmap.js"></script>
-        <!-- endbuild -->
+      <!-- build:js({.tmp,app}) scripts/scripts.js -->
+      <script src="scripts/app.js"></script>
+      <script src="scripts/constants.js"></script>
+      <script src="scripts/routes.js"></script>
+      <script src="scripts/controllers/main.js"></script>
+      <script src="scripts/services/directions.js"></script>
+      <script src="scripts/services/initializemap.js"></script>
+      <!-- endbuild -->
 
-        <!-- google maps api script -->
-        <!-- <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> -->
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
-        <!-- endgoogle -->
+      <!-- google maps api script -->
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places"></script>
+      <!-- endgoogle -->
 
 </body>
 </html>
