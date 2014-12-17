@@ -1,19 +1,35 @@
-<div class="col-md-4" id="search-form">
+<div class="col-md-4" id="search-form" ng-controller="DirectionsCtrl">
 
-  <p><input id="start" type="text" class="form-control input-md" placeholder="Start Location"></p>
+  <form role="form" name="directionsSearchForm" ng-submit="getDirections(endPoints)" novalidate>
+    <div class="form-group">
+      <label for="origin">Start Location</label>
+      <input type="text" class="form-control" id="origin" placeholder="Start Location" ng-model="endPoints.origin" required>
+    </div>
 
-  <p><input id="end" type="text" class="form-control input-md" placeholder="End Location"></p>
+    <div class="form-group">
+      <label for="destination">End Location</label>
+      <input type="text" class="form-control" id="destination" placeholder="End Location" ng-model="endPoints.destination" required>
+    </div>
 
-  <p>
-  <select class="form-control" id="place">
-    <option value="cvs">CVS</option>
-    <option value="starbucks">Starbucks</option>
-    <option value="whole foods">Whole Foods</option>
-  </select>
-  </p>
+    <div class="form-group">
+      <label for="place">stopIn Location</label>
+      <select class="form-control" id="place">
+        <option value="cvs">CVS</option>
+        <option value="starbucks">Starbucks</option>
+        <option value="whole foods">Whole Foods</option>
+      </select>
+    </div>
 
-  <button class="btn btn-primary" type="submit" onclick="calcRoute();">Submit</button>
+    <button type="submit" class="btn btn-primary" ng-disabled="directionsSearchForm.$invalid">Submit</button>
+  </form>
 
-  <ng-include src="'views/partials/directions.html'"></ng-include>
+
+  <!-- <ng-include src="'views/partials/directions.html'"></ng-include> -->
+
+  <div class="directions-panel">
+    <h4>Directions</h4>
+    <hr>
+    <div id="steps"></div>
+  </div>
 
 </div>
