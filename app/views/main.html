@@ -5,20 +5,18 @@
 
     <p class="lead">Where are you going? Stopping in somewhere along the way? Plot your route!</p>
 
-    <div class="container" id="search-form" ng-controller="MainCtrl">
+    <!-- Main Content -->
+    <div class="container" ng-controller="MainCtrl">
 
-      <div class="row">
-        <form class="form-inline" role="form" name="directionsSearchForm" ng-submit="getDirections(endPoints)" novalidate>
+      <!-- Search Form -->
+      <div class="row" id="search-form">
+        <form class="form-inline" role="form" name="directionsSearchForm" novalidate>
 
             <label for="origin">Start Location</label>
-            <input type="text" class="form-control" id="origin" placeholder="Start Location" ng-model="endPoints.origin" required>
-
-
+            <input type="text" class="form-control" id="origin" placeholder="Start Location" ng-model="origin" required>
 
             <label for="destination">End Location</label>
-            <input type="text" class="form-control" id="destination" placeholder="End Location" ng-model="endPoints.destination" required>
-
-
+            <input type="text" class="form-control" id="destination" placeholder="End Location" ng-model="destination" required>
 
             <label for="place">stopIn Location</label>
             <select class="form-control" id="place">
@@ -27,13 +25,10 @@
               <option value="whole foods">Whole Foods</option>
             </select>
 
-
-          <button type="submit" class="btn btn-info" ng-disabled="directionsSearchForm.$invalid">Get Directions</button>
+          <button type="submit" class="btn btn-info" ng-click="getDirections()" ng-disabled="directionsSearchForm.$invalid">Get Directions</button>
         </form>
       </div>
 
-
-      <!-- <ng-include src="'views/partials/directions.html'"></ng-include> -->
       <div class="row">
         <div class="col-md-4">
           <div class="directions-panel">
