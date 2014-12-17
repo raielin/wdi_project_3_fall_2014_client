@@ -44,45 +44,48 @@
         <!-- Main Content -->
         <div class="container" ng-controller="MainCtrl">
 
-          <!-- Search Form -->
-          <div class="search-form">
-            <form class="form-inline" role="form" name="directionsSearchForm" novalidate>
-              <div class="form-group">
-                <label class="sr-only" for="origin">Origin</label>
-                <input type="text" class="form-control" id="origin" placeholder="Start Location" ng-model="origin" required>
-              </div>
-
-              <div class="form-group">
-                <label class="sr-only" for="Destination">Destination</label>
-                <input type="text" class="form-control" id="destination" placeholder="End Location" ng-model="destination" required>
-              </div>
-
-              <div class="form-group">
-                <label class="sr-only" for="place">stopIn</label>
-                <select class="form-control" id="place">
-                  <option value="" selected disabled>Select stopIn Location</option>
-                  <option value="cvs">CVS</option>
-                  <option value="starbucks">Starbucks</option>
-                  <option value="whole foods">Whole Foods</option>
-                </select>
-              </div>
-
-              <button type="submit" class="btn btn-info" ng-click="getDirections()" ng-disabled="directionsSearchForm.$invalid">Get Directions</button>
-            </form>
-          </div>
-
-          <!-- Directions Panel & Map Canvas -->
+          <!-- Search, Directions, Map -->
           <div class="main">
+            <!-- Side Panel -->
+            <div class="col-md-4 side-panel">
+              <form class="form" role="form" name="directionsSearchForm" novalidate>
+                <div class="form-group">
+                  <label class="sr-only" for="origin">Origin</label>
+                  <input type="text" class="form-control" id="origin" placeholder="Start Location" ng-model="origin" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="sr-only" for="Destination">Destination</label>
+                  <input type="text" class="form-control" id="destination" placeholder="End Location" ng-model="destination" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="sr-only" for="place">stopIn</label>
+                  <select class="form-control" id="place">
+                    <option value="" selected disabled>Select stopIn Location</option>
+                    <option value="cvs">CVS</option>
+                    <option value="starbucks">Starbucks</option>
+                    <option value="whole foods">Whole Foods</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="btn btn-info" ng-click="getDirections()" ng-disabled="directionsSearchForm.$invalid">Get Directions</button>
+              </form>
+
+              <div class="directions">
+                <h4>Directions</h4>
+                <hr>
+                <div class="directions-window" id="steps"></div>
+              </div>
+
+            </div> <!-- /#side-panel :collapse-->
+
+            <!-- Map -->
             <div class="col-md-8" id="map-window">
-                <div id="map-canvas"></div>
+              <div id="map-canvas"></div>
             </div>
 
-            <div class="col-md-4" id="side-panel">
-              <h4>Directions</h4>
-              <hr>
-              <div class="directions-window" id="steps"></div>
-            </div>
-          </div>
+          </div> <!-- /.main :collapse -->
 
           <!-- Places Panel -->
           <div class="places-panel">
