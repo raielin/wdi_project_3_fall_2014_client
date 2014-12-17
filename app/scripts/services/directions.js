@@ -8,17 +8,26 @@
  * Factory in the stopInApp.
  */
 
-angular.module('stopInApp').factory('DirectionsFactory', function($http, MapsAPI) {
+angular.module('stopInApp').factory('DirectionsFactory', function(InitializeMapFactory) {
 
-  var directions = [];
+  var map = InitializeMapFactory.map;
+  var directionsService = new google.maps.DirectionsService();
+  var directionsDisplay;
 
-  function fetch() {
-    $http.get(MapsAPI)
-  }
+  // function initialize() {
+    var rendererOptions = {
+      draggable: true,
+      map: map
+    };
+
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+    // directionsDisplay.setMap(map);
+    // directionsDisplay.setPanel(document.getElementById('steps'));
+  // }
 
   return {
-    someMethod: function () {
-      return meaningOfLife;
-    }
+    // initialize: initialize(),
+    directionsDisplay: directionsDisplay,
+    directionsService: directionsService
   };
 });
