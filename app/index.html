@@ -35,54 +35,60 @@
 
         <!-- Header -->
         <div class="page-header" id="my-head">
-          <h1>Stop-In</h1>
+          <h1>stopIn</h1>
         </div>
 
         <!-- Subhead -->
-        <p class="lead">Where are you going? Stopping in somewhere along the way? Plot your route!</p>
+        <p class="lead">Where are you going? Stopping-in somewhere along the way? Plot your route!</p>
 
         <!-- Main Content -->
         <div class="container" ng-controller="MainCtrl">
 
           <!-- Search Form -->
-          <div class="row" id="search-form">
+          <div class="search-form">
             <form class="form-inline" role="form" name="directionsSearchForm" novalidate>
-
-                <label for="origin">Start Location</label>
+              <div class="form-group">
+                <label class="sr-only" for="origin">Origin</label>
                 <input type="text" class="form-control" id="origin" placeholder="Start Location" ng-model="origin" required>
+              </div>
 
-                <label for="destination">End Location</label>
+              <div class="form-group">
+                <label class="sr-only" for="Destination">Destination</label>
                 <input type="text" class="form-control" id="destination" placeholder="End Location" ng-model="destination" required>
+              </div>
 
-                <label for="place">stopIn Location</label>
+              <div class="form-group">
+                <label class="sr-only" for="place">stopIn</label>
                 <select class="form-control" id="place">
+                  <option value="" selected disabled>Select stopIn Location</option>
                   <option value="cvs">CVS</option>
                   <option value="starbucks">Starbucks</option>
                   <option value="whole foods">Whole Foods</option>
                 </select>
+              </div>
 
               <button type="submit" class="btn btn-info" ng-click="getDirections()" ng-disabled="directionsSearchForm.$invalid">Get Directions</button>
             </form>
           </div>
 
           <!-- Directions Panel & Map Canvas -->
-          <div class="row">
+          <div class="main">
+            <div class="col-md-8" id="map-window">
+                <div id="map-canvas"></div>
+            </div>
+
             <div class="col-md-4">
               <div class="directions-panel">
-                <h4>Directions</h4>
+                <h4>Route</h4>
                 <hr>
                 <div id="steps"></div>
-              </div>
-
-              <div class="col-md-8" id="map-window">
-                <div id="map-canvas"></div>
               </div>
             </div>
           </div>
 
           <!-- Places Panel -->
-          <div class="row">
-            <div class="col-md-12" id="places-panel">
+          <div class="places-panel">
+            <div class="col-md-12">
               <h4>Places Results</h4>
               <hr>
             </div>
