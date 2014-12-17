@@ -56,7 +56,7 @@ body {
   padding: 0;
 }
 
-#places-data {
+#places-panel {
   overflow: scroll;
   width: 100%;
   height: 300px;

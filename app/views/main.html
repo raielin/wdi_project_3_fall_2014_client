@@ -1,8 +1,15 @@
+<!-- Body Wrap -->
 <div id="wrap">
+
+  <!-- Body Container -->
   <div class="container">
 
-    <ng-include src="'views/partials/header.html'"></ng-include>
+    <!-- Header -->
+    <div class="page-header" id="my-head">
+      <h1>Stop-In</h1>
+    </div>
 
+    <!-- Subhead -->
     <p class="lead">Where are you going? Stopping in somewhere along the way? Plot your route!</p>
 
     <!-- Main Content -->
@@ -29,6 +36,7 @@
         </form>
       </div>
 
+      <!-- Directions Panel & Map Canvas -->
       <div class="row">
         <div class="col-md-4">
           <div class="directions-panel">
@@ -42,9 +50,17 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <ng-include src="'views/partials/places.html'"></ng-include>
+      <!-- Places Panel -->
+      <div class="row">
+        <div class="col-md-12" id="places-panel">
+          <h4>Places Results</h4>
+          <hr>
+        </div>
+      </div>
 
-  </div>  <!-- /.container / main page content -->
+    </div>  <!-- /.container-collapse / main container -->
+
+
+  </div>  <!-- /.container / body container -->
 </div>  <!-- /.wrap -->
