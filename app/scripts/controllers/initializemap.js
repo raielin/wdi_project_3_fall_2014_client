@@ -1,30 +1,30 @@
-// 'use strict';
+'use strict';
 
-// /**
-//  * @ngdoc function
-//  * @name stopInApp.controller:InitializeMapCtrl
-//  * @description
-//  * # InitializeMapCtrl
-//  * Controller of the stopInApp
-//  */
-// angular.module('stopInApp').controller('InitializeMapCtrl', function($scope, $window, InitializeMapFactory, DirectionsFactory) {
+/**
+ * @ngdoc function
+ * @name stopInApp.controller:InitializeMapCtrl
+ * @description
+ * # InitializeMapCtrl
+ * Controller of the stopInApp
+ */
+angular.module('stopInApp').controller('InitializeMapCtrl', function($scope, $window, InitializeMapFactory, DirectionsFactory) {
 
-//   function initialize() {
-//     $scope.map = InitializeMapFactory.map;
-//     $scope.directionsService = DirectionsFactory.directionsService;
-//     $scope.directionsDisplay = DirectionsFactory.directionsDisplay;
+  $scope.map = InitializeMapFactory.map;
+  $scope.directionsService = DirectionsFactory.directionsService;
+  $scope.directionsDisplay = DirectionsFactory.directionsDisplay;
 
-//     $scope.directionsDisplay.setMap(map);
-//     $scope.directionsDisplay.setPanel(document.getElementById('steps'));
-//   }
+  $scope.initialize = function() {
+    $scope.directionsDisplay.setMap($scope.map);
+    $scope.directionsDisplay.setPanel(document.getElementById('steps'));
+  }
 
-//   google.maps.event.addDomListener($window, 'load', initialize);
+  // google.maps.event.addDomListener($window, 'load', $scope.initialize);
 
-//   // initialize();
+  $scope.initialize();
 
-//   // $scope.awesomeThings = [
-//   //   'HTML5 Boilerplate',
-//   //   'AngularJS',
-//   //   'Karma'
-//   // ];
-// });
+  // $scope.awesomeThings = [
+  //   'HTML5 Boilerplate',
+  //   'AngularJS',
+  //   'Karma'
+  // ];
+});
