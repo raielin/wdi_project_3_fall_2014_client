@@ -1,86 +1,116 @@
 'use strict';
+stopInApp.controller('MainCtrl',
+  function MainCtrl($scope) {
 
-/**
- * @ngdoc function
- * @name stopInApp.controller:DirectionsCtrl
- * @description
- * # DirectionsCtrl
- * Controller of the stopInApp
- */
+    var directionsDisplay;
+    var directionsService = new google.maps.DirectionsService();
+    var map;
+    var infoWindow;
 
+    var styles = [
+      {
+        "featureType": "landscape.man_made",
+        "stylers": [
+          { "saturation": 17 },
+          { "lightness": 47 },
+          { "hue": "#f600ff" }
+        ]
+      },{
+        "featureType": "landscape.natural.landcover",
+        "stylers": [
+          { "saturation": 29 },
+          { "lightness": 30 },
+          { "color": "#e6f0f0" }
+        ]
+      },{
+        "featureType": "landscape.natural.terrain",
+        "stylers": [
+          { "hue": "#ff0000" },
+          { "saturation": 11 },
+          { "lightness": -8 },
+          { "color": "#80b280" }
+        ]
+      },{
+        "featureType": "road.highway",
+        "elementType": "geometry",
+        "stylers": [
+          { "saturation": -28 },
+          { "color": "#dd8080" },
+          { "lightness": 21 }
+        ]
+      },{
+        "featureType": "road.arterial",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          { "color": "#8ccce0" },
+          { "saturation": -20 },
+          { "lightness": 24 }
+        ]
+      },{
+        "featureType": "road.local",
+        "elementType": "geometry.stroke",
+        "stylers": [
+          { "color": "#80b4ad" }
+        ]
+      },{
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+          { "color": "#809dad" },
+          { "saturation": 21 },
+          { "lightness": 55 }
+        ]
+      }
+    ]
 
-// angular.module('stopInApp').controller('MainCtrl', function($scope, InitializeMapFactory, DirectionsFactory, $window) {
+    var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
 
-//   $scope.map = InitializeMapFactory.map;
-//   $scope.directionsService = DirectionsFactory.directionsService;
-//   $scope.directionsDisplay = DirectionsFactory.directionsDisplay;
+    var boston = new google.maps.LatLng(42.358992, -71.061019);
 
-//   function initialize() {
-//     $scope.styledMap = InitializeMapFactory.styledMap;
-//     $scope.map.mapTypes.set('map_style', $scope.styledMap);
-//     $scope.map.setMapTypeId('map_style');
+    var mapOptions = {
+      zoom: 15,
+      center: boston,
+      mapTypeControlOptions: {
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+      }
+    };
 
-//     $scope.directionsDisplay.setMap(map);
-//     $scope.directionsDisplay.setPanel(document.getElementById('steps'));
-//   };
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-//   $scope.getDirections = function(endPoints) {
-//     $scope.origin = endPoints.origin;
-//     $scope.destination = endPoints.destination;
+    map.mapTypes.set('map_style', styledMap);
+    map.setMapTypeId('map_style');
 
-//     var request = {
-//       origin: $scope.origin,
-//       destination: $scope.destination,
-//       travelMode: google.maps.TravelMode.DRIVING
-//     };
+    var rendererOptions = {
+      draggable: true,
+      map: map
+    };
 
-//     $scope.directionsService.route(request, directionsCallback);
-//   };
+    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+    directionsDisplay.setMap(map);
+    directionsDisplay.setPanel(document.getElementById('steps'));
 
-//   function directionsCallback(response, status) {
-//     if (status === google.maps.DirectionsStatus.OK) {
-//       $scope.directionsDisplay.setDirections(response);
-//     }
-//   }
+    google.maps.event.addListener(marker, 'click', function() {
+      infoWindow.setContent(place.name);
+      infoWindow.open(map, marker);
+    });
 
-//   // initialize();
-//   google.maps.event.addDomListener($window, 'load', $scope.initialize);
+    $scope.getDirections = function() {
+      // $scope.origin = document.getElementById('origin').value;
+      // $scope.destination = document.getElementById('destination').value;
+      var request = {
+          origin: $scope.origin,
+          destination: $scope.destination,
+          travelMode: google.maps.TravelMode.DRIVING
+      };
+      directionsService.route(request, callback);
+    }
 
-// });
+    function callback(response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      }
+    }
 
-angular.module('stopInApp').controller('MainCtrl', function($scope) {
-// angular.module('stopInApp').controller('MainCtrl', function($scope, $window, InitializeMapFactory, DirectionsFactory) {
-  // $scope.$on('$viewContentLoaded', function() {
-  //   google.maps.event.addDomListener($window, 'load', InitializeMapFactory.initialize);
-  //   google.maps.event.addDomListener($window, 'load', DirectionsFactory.initialize);
-  // })
+    $scope.getDirections();
 
-
-  // function initialize() {
-  //     map = InitializeMapFactory.map;
-  //     directionsDisplay = DirectionsFactory.directionsDisplay;
-  //     directionsService = DirectionsFactory.directionsService;
-
-  // }
-
-  // google.maps.event.addDomListener($window, 'load', initialize);
-
-
-
-  //  = function() {
-  //   map = InitializeMapFactory.map;
-  //   directionsDisplay = DirectionsFactory.dirDisplay;
-  //   directionsService = DirectionsFactory.dirService;
-
-  //   directionsDisplay.setMap(map);
-  //   directionsDisplay.setPanel(document.getElementById('steps'));
-  // };
-
-  // google.maps.event.addDomListener($window, 'load', $scope.initialize);
-
-  $scope.awesomeThings = [
-    'HTML5 Boilerplate',
-    'AngularJS',
-    'Karma'
-  ];
-});
+  });
