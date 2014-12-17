@@ -8,9 +8,7 @@
  *
  * Main module of the application.
  */
-angular.module('stopInApp', [
-  'ngRoute'
-]);
+var stopInApp = angular.module('stopInApp', []);
 
 // .run(function(
 //   $window,
