@@ -89,11 +89,6 @@ stopInApp.controller('MainCtrl',
     directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById('steps'));
 
-    google.maps.event.addListener(marker, 'click', function() {
-      infoWindow.setContent(place.name);
-      infoWindow.open(map, marker);
-    });
-
     $scope.getDirections = function() {
       // $scope.origin = document.getElementById('origin').value;
       // $scope.destination = document.getElementById('destination').value;
@@ -109,6 +104,19 @@ stopInApp.controller('MainCtrl',
       if (status == google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
       }
+    }
+
+    function createMarker(place) {
+      var placeLoc = place.geometry.location;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infoWindow.setContent(place.name);
+        infoWindow.open(map, this);
+      });
     }
 
     $scope.getDirections();
