@@ -5,13 +5,49 @@
 
     <p class="lead">Where are you going? Stopping in somewhere along the way? Plot your route!</p>
 
-    <div class="container">
+    <div class="container" id="search-form" ng-controller="MainCtrl">
 
-      <ng-include src="'views/partials/search.html'"></ng-include>
+      <div class="row">
+        <form class="form-inline" role="form" name="directionsSearchForm" ng-submit="getDirections(endPoints)" novalidate>
 
-      <ng-include src="'views/partials/map_canvas.html'"></ng-include>
+            <label for="origin">Start Location</label>
+            <input type="text" class="form-control" id="origin" placeholder="Start Location" ng-model="endPoints.origin" required>
 
-    </div>  <!-- /.container / map functionality -->
+
+
+            <label for="destination">End Location</label>
+            <input type="text" class="form-control" id="destination" placeholder="End Location" ng-model="endPoints.destination" required>
+
+
+
+            <label for="place">stopIn Location</label>
+            <select class="form-control" id="place">
+              <option value="cvs">CVS</option>
+              <option value="starbucks">Starbucks</option>
+              <option value="whole foods">Whole Foods</option>
+            </select>
+
+
+          <button type="submit" class="btn btn-info" ng-disabled="directionsSearchForm.$invalid">Get Directions</button>
+        </form>
+      </div>
+
+
+      <!-- <ng-include src="'views/partials/directions.html'"></ng-include> -->
+      <div class="row">
+        <div class="col-md-4">
+          <div class="directions-panel">
+            <h4>Directions</h4>
+            <hr>
+            <div id="steps"></div>
+          </div>
+
+          <div class="col-md-8" id="map-window">
+            <div id="map-canvas"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <ng-include src="'views/partials/places.html'"></ng-include>
 
