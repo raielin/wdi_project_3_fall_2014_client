@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-var stopInApp = angular.module('stopInApp', ['stopIn']);
+var stopInApp = angular.module('stopInApp', ['ep']);
 
 // .run(function(
 //   $window,

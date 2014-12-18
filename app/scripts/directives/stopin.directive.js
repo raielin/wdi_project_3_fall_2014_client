@@ -6,15 +6,15 @@
  * @description
  * # stopIn
  */
-angular.module('stopInApp')
+angular.module('ep', [])
   .directive('stopIn', function($window, $parse) {
     var counter = 0;
-    prefix = '__stopInApp_stopIn_';
+    var prefix = '__ep_stopIn_';
 
     return {
       restrict: 'A',
       replace: false,
-      templateUrl: 'app/views/stopin.html',
+      templateUrl: '/views/stopin.html',
       link: function(scope, element, attrs, controller) {
         var getter = $parse(attrs.stopIn);
         var setter = getter.assign;

@@ -1,16 +1,15 @@
-<!-- Search, Directions, Map -->
 <div class="main">
   <!-- Side Panel -->
   <div class="col-md-4 side-panel">
     <form class="form" role="form" name="directionsSearchForm" novalidate>
       <div class="form-group">
         <label class="sr-only" for="origin">Origin</label>
-        <input type="text" class="form-control" id="origin" placeholder="Start Location" ng-model="stop-in.origin" required>
+        <input type="text" class="form-control" id="origin" placeholder="Start Location" ng-model="stopIn.origin" required>
       </div>
 
       <div class="form-group">
         <label class="sr-only" for="Destination">Destination</label>
-        <input type="text" class="form-control" id="destination" placeholder="End Location" ng-model="stop-in.destination" required>
+        <input type="text" class="form-control" id="destination" placeholder="End Location" ng-model="stopIn.destination" required>
       </div>
 
       <div class="form-group">
@@ -23,7 +22,7 @@
         </select>
       </div>
 
-      <button type="submit" class="btn btn-info" ng-click="stop-in.getDirections()" ng-disabled="directionsSearchForm.$invalid">Get Directions</button>
+      <button type="submit" class="btn btn-info" ng-click="stopIn.getDirections()" ng-disabled="directionsSearchForm.$invalid">Get Directions</button>
     </form>
 
     <div class="directions">
