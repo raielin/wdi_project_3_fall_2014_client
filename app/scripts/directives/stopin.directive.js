@@ -96,11 +96,12 @@ angular.module('ep', [])
 
           var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
 
-          var boston = new google.maps.LatLng(42.358992, -71.061019);
+          // Setting default center to Boston.
+          var center = new google.maps.LatLng(42.358992, -71.061019);
 
           var mapOptions = {
             zoom: 15,
-            center: boston,
+            center: center,
             mapTypeControlOptions: {
               mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
             }
@@ -126,7 +127,9 @@ angular.module('ep', [])
             var request = {
                 origin: model.origin,
                 destination: model.destination,
-                travelMode: google.maps.TravelMode.DRIVING
+                provideRouteAlternatives: true,
+                travelMode: google.maps.TravelMode.DRIVING,
+                optimizeWaypoints: true
             };
             directionsService.route(request, callback);
           }  // END: model.getDirections()
