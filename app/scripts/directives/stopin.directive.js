@@ -143,6 +143,7 @@ angular.module('ep', [])
               // getRouteMarkers(originPlace.geometry.location, destinationPlace.geometry.location);
 
               directionsDisplay.setDirections(response);
+              // getTimes(response);
               getPlaces(bounds);
 
             } else {
@@ -238,18 +239,18 @@ angular.module('ep', [])
           // }
 
 
-          function getAddress(place) {
-            var request = {
-              placeId: place.place_id
-            };
+          // function getAddress(place) {
+          //   var request = {
+          //     placeId: place.place_id
+          //   };
 
-            var service = new google.maps.places.PlacesService(map);
-            service.getDetails(request, function(result, status) {
-              if (status === google.maps.places.PlacesServiceStatus.OK) {
-                return result.formatted_address;
-              }
-            });
-          }
+          //   var service = new google.maps.places.PlacesService(map);
+          //   service.getDetails(request, function(result, status) {
+          //     if (status === google.maps.places.PlacesServiceStatus.OK) {
+          //       return result.formatted_address;
+          //     }
+          //   });
+          // }
 
           function showPlace(place) {
             var image = {
@@ -280,6 +281,24 @@ angular.module('ep', [])
 
           // invoke function initially
           // model.getDirections();
+
+          // function getTimes(response) {
+          //   var model.time = 0;
+          //   var model.trafficTime = 0;
+          //   route = result.routes[0];
+          //   for (var i = 0; i < route.legs.length; i++) {
+          //     // time in seconds
+          //     model.time += myroute.legs[i].duration.value;
+          //     model.trafficTime += myroute.legs[i].duration_in_traffic.value;
+          //   }
+
+          //   // convert seconds to
+
+          //   total = total / 1000;
+          //   scope.$apply(function () {
+          //     model.totalKm = total;
+          //   });
+          // }  // END: getTimes(response)
 
           function getStopInRoute(placeLatLng) {
             var waypts = [];
