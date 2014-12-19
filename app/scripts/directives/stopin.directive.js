@@ -30,69 +30,72 @@ angular.module('ep', [])
         }
 
         function appInit() {
+          scope.places = [];
           var map;
           var directionsService = new google.maps.DirectionsService();
           var directionsDisplay;
           var infoWindow;
           var placesList;
+          // var originPlace;
+          // var destinationPlace;
 
           var styles = [
             {
-              "featureType": "landscape.man_made",
-              "stylers": [
-                { "saturation": 17 },
-                { "lightness": 47 },
-                { "hue": "#f600ff" }
+              'featureType': 'landscape.man_made',
+              'stylers': [
+                { 'saturation': 17 },
+                { 'lightness': 47 },
+                { 'hue': '#f600ff' }
               ]
             },{
-              "featureType": "landscape.natural.landcover",
-              "stylers": [
-                { "saturation": 29 },
-                { "lightness": 30 },
-                { "color": "#e6f0f0" }
+              'featureType': 'landscape.natural.landcover',
+              'stylers': [
+                { 'saturation': 29 },
+                { 'lightness': 30 },
+                { 'color': '#e6f0f0' }
               ]
             },{
-              "featureType": "landscape.natural.terrain",
-              "stylers": [
-                { "hue": "#ff0000" },
-                { "saturation": 11 },
-                { "lightness": -8 },
-                { "color": "#80b280" }
+              'featureType': 'landscape.natural.terrain',
+              'stylers': [
+                { 'hue': '#ff0000' },
+                { 'saturation': 11 },
+                { 'lightness': -8 },
+                { 'color': '#80b280' }
               ]
             },{
-              "featureType": "road.highway",
-              "elementType": "geometry",
-              "stylers": [
-                { "saturation": -28 },
-                { "color": "#dd8080" },
-                { "lightness": 21 }
+              'featureType': 'road.highway',
+              'elementType': 'geometry',
+              'stylers': [
+                { 'saturation': -28 },
+                { 'color': '#dd8080' },
+                { 'lightness': 21 }
               ]
             },{
-              "featureType": "road.arterial",
-              "elementType": "geometry.stroke",
-              "stylers": [
-                { "color": "#8ccce0" },
-                { "saturation": -20 },
-                { "lightness": 24 }
+              'featureType': 'road.arterial',
+              'elementType': 'geometry.stroke',
+              'stylers': [
+                { 'color': '#8ccce0' },
+                { 'saturation': -20 },
+                { 'lightness': 24 }
               ]
             },{
-              "featureType": "road.local",
-              "elementType": "geometry.stroke",
-              "stylers": [
-                { "color": "#80b4ad" }
+              'featureType': 'road.local',
+              'elementType': 'geometry.stroke',
+              'stylers': [
+                { 'color': '#80b4ad' }
               ]
             },{
-              "featureType": "water",
-              "elementType": "geometry.fill",
-              "stylers": [
-                { "color": "#809dad" },
-                { "saturation": 21 },
-                { "lightness": 55 }
+              'featureType': 'water',
+              'elementType': 'geometry.fill',
+              'stylers': [
+                { 'color': '#809dad' },
+                { 'saturation': 21 },
+                { 'lightness': 55 }
               ]
             }
-          ]
+          ];
 
-          var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
+          var styledMap = new google.maps.StyledMapType(styles, {name: 'Styled Map'});
 
           // Setting default center to Boston.
           var center = new google.maps.LatLng(42.358992, -71.061019);
@@ -112,7 +115,7 @@ angular.module('ep', [])
 
           var rendererOptions = {
             draggable: true,
-            map: map
+            map: map,
           };
 
           directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
@@ -128,13 +131,20 @@ angular.module('ep', [])
                 optimizeWaypoints: true
             };
             directionsService.route(request, directionsCallback);
-          }  // END: model.getDirections()
+          };  // END: model.getDirections()
 
           function directionsCallback(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-              directionsDisplay.setDirections(response);
+            if (status === google.maps.DirectionsStatus.OK) {
+
               var bounds = response.routes[0].bounds;
+
+              // originPlace = getPlace(model.origin);
+              // destinationPlace = getPlace(model.destination);
+              // getRouteMarkers(originPlace.geometry.location, destinationPlace.geometry.location);
+
+              directionsDisplay.setDirections(response);
               getPlaces(bounds);
+
             } else {
               if (angular.isFunction(model.showError)) {
                 scope.$apply(function() {
@@ -143,6 +153,47 @@ angular.module('ep', [])
               }
             }
           }  // END: callback()
+
+          // function getRouteMarkers(originLatLng, destinationLatLng) {
+
+          //   var originMarkerImg = {
+          //     url: 'images/map-marker-icon-green-darker.png',
+          //     scaledSize: new google.maps.Size(40, 40),
+          //     origin: new google.maps.Point(0, 0),
+          //     anchor: new google.maps.Point(20, 40)
+          //   };
+
+          //   var destinationMarkerImg = {
+          //     url: 'images/map-marker-icon-pink.png',
+          //     scaledSize: new google.maps.Size(40, 40),
+          //     origin: new google.maps.Point(0, 0),
+          //     anchor: new google.maps.Point(20, 40)
+          //   };
+
+          //   var originMarker = new google.maps.Marker({
+          //     map: map,
+          //     icon: originMarkerImg,
+          //     title: originPlace.name,
+          //     position: originLatLng
+          //   });
+
+          //   var destinationMarker = new google.maps.Marker({
+          //     map: map,
+          //     icon: destinationMarkerImg,
+          //     title: destinationPlace.name,
+          //     position: destination.LatLng
+          //   });
+
+          //   google.maps.event.addListener(originMarker, 'click', function() {
+          //     infoWindow.setContent(originPlace.name);
+          //     infoWindow.open(map, this);
+          //   });
+
+          //   google.maps.event.addListener(destinationMarker, 'click', function() {
+          //     infoWindow.setContent(originPlace.name);
+          //     infoWindow.open(map, this);
+          //   });
+          // }
 
           function getPlaces(bounds) {
             var request = {
@@ -156,36 +207,96 @@ angular.module('ep', [])
           }
 
           function placesCallback(results, status) {
-            if (status == google.maps.places.PlacesServiceStatus.OK) {
-              showPlaces(results);
+            var maxPlaces;
+            if (results.length < 15) {
+              maxPlaces = results.length;
+            } else {
+              maxPlaces = 15;
+            }
+
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              for (var i = 0; i < maxPlaces; i++) {
+                scope.places.push(results[i]);
+                showPlace(results[i]);
+              }
             }
           }
 
-          function showPlaces(places) {
-            var bounds = new google.maps.LatLngBounds();
-            scope.places = places;
+          // function getPlace(query) {
+          //   var request = {
+          //     bounds: map.getBounds(),
+          //     query: query
+          //   };
 
-            for (var i = 0, place; place = places[i]; i++) {
-              var marker = new google.maps.Marker({
-                map: map,
-                title: place.name,
-                position: place.geometry.location
-              });
+          //   var service = new google.maps.places.PlacesService(map);
 
-              google.maps.event.addListener(marker, 'click', function() {
-                infoWindow.setContent(place.name);
-                infoWindow.open(map, this);
-              });
+          //   service.textSearch(request, function(results, status) {
+          //     if (status == google.maps.places.PlacesServiceStatus.OK) {
+          //       results[0];
+          //     }
+          //   });
+          // }
 
-              // placesList.innerHTML += '<li>' + place.name + '</li>';
-              bounds.extend(place.geometry.location);
-            }
 
-            map.fitBounds(bounds);
-          }  // END: createMarkers(places)
+          function getAddress(place) {
+            var request = {
+              placeId: place.place_id
+            };
+
+            var service = new google.maps.places.PlacesService(map);
+            service.getDetails(request, function(result, status) {
+              if (status === google.maps.places.PlacesServiceStatus.OK) {
+                return result.formatted_address;
+              }
+            });
+          }
+
+          function showPlace(place) {
+            var image = {
+              url: 'https://s3.amazonaws.com/uploads.hipchat.com/39979/1226495/nVmYcB0iteYOGMg/map-marker-icon-blue.png',
+              scaledSize: new google.maps.Size(40, 40),
+              origin: new google.maps.Point(0, 0),
+              anchor: new google.maps.Point(20, 40)
+            };
+
+            var marker = new google.maps.Marker({
+              map: map,
+              icon: image,
+              title: place.name,
+              position: place.geometry.location
+            });
+
+            // var placeAddress = getAddress(place);
+
+            // var contentString = '<div><strong>' + place.name + '</strong><br>' + place.vacinity + '</div>';
+
+            google.maps.event.addListener(marker, 'click', function() {
+              infoWindow.setContent(place.name);
+              infoWindow.open(map, this);
+              var wayptLatLng = marker.getPosition();
+              getStopInRoute(wayptLatLng);
+            });
+          }  // END: showPlace(place)
 
           // invoke function initially
-          model.getDirections();
+          // model.getDirections();
+
+          function getStopInRoute(placeLatLng) {
+            var waypts = [];
+            waypts.push({
+              location: placeLatLng,
+              stopover:true
+            });
+            var request = {
+                origin: model.origin,
+                destination: model.destination,
+                waypoints: waypts,
+                provideRouteAlternatives: true,
+                travelMode: google.maps.TravelMode.DRIVING,
+                optimizeWaypoints: true
+            };
+            directionsService.route(request, directionsCallback);
+          };  // END: getStopInRoute(place)
 
         }  // END: appInit()
 
@@ -201,7 +312,7 @@ angular.module('ep', [])
           wf.async = 'true';
           var s = document.getElementsByTagName('script')[0];
           s.parentNode.insertBefore(wf, s);
-        };  // END: injectGoogle()
+        }  // END: injectGoogle()
 
 
 
