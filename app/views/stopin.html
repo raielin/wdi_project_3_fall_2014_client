@@ -14,12 +14,13 @@
 
       <div class="form-group">
         <label class="sr-only" for="place-select">stopIn</label>
-        <select class="form-control" id="place-select" ng-model="stopIn.placeSelect">
+        <input type="text" class="form-control" id="destination" placeholder="StopIn Location" ng-model="stopIn.placeSelect" required>
+<!--         <select class="form-control" id="place-select" ng-model="stopIn.placeSelect">
           <option value="" selected disabled>Select stopIn Location</option>
           <option value="cvs">CVS</option>
           <option value="starbucks">Starbucks</option>
           <option value="whole foods">Whole Foods</option>
-        </select>
+        </select> -->
       </div>
 
       <button type="submit" class="btn btn-info" ng-click="stopIn.getDirections()" ng-disabled="directionsSearchForm.$invalid">Get Directions</button>
@@ -27,6 +28,7 @@
 
     <div class="directions">
       <h4>Directions</h4>
+      <!-- <h5>total travel time: {{ stopIn.time }}</h5> -->
       <hr>
       <div class="directions-window" id="steps"></div>
     </div>
@@ -41,7 +43,7 @@
 </div> <!-- /.main :collapse -->
 
 <!-- Places Panel -->
-<div class="places-panel">
+<!-- <div class="places-panel">
   <div class="col-md-12">
     <h4>Places Results</h4>
     <hr>
@@ -51,6 +53,6 @@
     </ul>
 
   </div>
-</div>
+</div> -->
 
 
