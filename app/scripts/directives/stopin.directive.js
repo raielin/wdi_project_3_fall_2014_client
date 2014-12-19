@@ -20,9 +20,6 @@ angular.module('ep', [])
         var setter = getter.assign;
 
         var model = scope.stopIn;
-        // model.origin = '';
-        // model.destination = '';
-        // model.place = '';
 
         setter(scope, model);
 
@@ -37,6 +34,7 @@ angular.module('ep', [])
           var directionsService = new google.maps.DirectionsService();
           var directionsDisplay;
           var infoWindow;
+          var placesList;
 
           var styles = [
             {
@@ -122,8 +120,6 @@ angular.module('ep', [])
           directionsDisplay.setPanel(document.getElementById('steps'));
 
           model.getDirections = function() {
-            // $scope.origin = document.getElementById('origin').value;
-            // $scope.destination = document.getElementById('destination').value;
             var request = {
                 origin: model.origin,
                 destination: model.destination,
@@ -131,12 +127,14 @@ angular.module('ep', [])
                 travelMode: google.maps.TravelMode.DRIVING,
                 optimizeWaypoints: true
             };
-            directionsService.route(request, callback);
+            directionsService.route(request, directionsCallback);
           }  // END: model.getDirections()
 
-          function callback(response, status) {
+          function directionsCallback(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
               directionsDisplay.setDirections(response);
+              var bounds = response.routes[0].bounds;
+              getPlaces(bounds);
             } else {
               if (angular.isFunction(model.showError)) {
                 scope.$apply(function() {
@@ -146,18 +144,45 @@ angular.module('ep', [])
             }
           }  // END: callback()
 
-          function createMarker(place) {
-            var placeLoc = place.geometry.location;
-            var marker = new google.maps.Marker({
-              map: map,
-              position: place.geometry.location
-            });
+          function getPlaces(bounds) {
+            var request = {
+              bounds: bounds,
+              keyword: model.placeSelect
+            };
 
-            google.maps.event.addListener(marker, 'click', function() {
-              infoWindow.setContent(place.name);
-              infoWindow.open(map, this);
-            });
-          }  // END: createMarker(place)
+            infoWindow = new google.maps.InfoWindow();
+            var service = new google.maps.places.PlacesService(map);
+            service.nearbySearch(request, placesCallback);
+          }
+
+          function placesCallback(results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+              showPlaces(results);
+            }
+          }
+
+          function showPlaces(places) {
+            var bounds = new google.maps.LatLngBounds();
+            scope.places = places;
+
+            for (var i = 0, place; place = places[i]; i++) {
+              var marker = new google.maps.Marker({
+                map: map,
+                title: place.name,
+                position: place.geometry.location
+              });
+
+              google.maps.event.addListener(marker, 'click', function() {
+                infoWindow.setContent(place.name);
+                infoWindow.open(map, this);
+              });
+
+              // placesList.innerHTML += '<li>' + place.name + '</li>';
+              bounds.extend(place.geometry.location);
+            }
+
+            map.fitBounds(bounds);
+          }  // END: createMarkers(places)
 
           // invoke function initially
           model.getDirections();
