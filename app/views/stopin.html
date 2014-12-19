@@ -46,7 +46,7 @@
     <h4>Places Results</h4>
     <hr>
 
-    <ul>
+    <ul ng-show="places.length > 0">
       <li ng-repeat="place in places">{{ place.name }}</li>
     </ul>
 
